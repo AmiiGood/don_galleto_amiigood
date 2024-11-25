@@ -14,21 +14,23 @@ URL Base: `/api/ingredients`
 
 Devuelve una lista de todos los ingredientes.
 
-**Respuesta:**
+**Ejemplo de Respuesta:**
 
-```typescript
-interface RespuestaObtenerIngredientes {
-  data: {
-    id: number;
-    nombre: string;
-    stock: number;
-    unidad: string;
-    stockMinimo: number;
-    costo: number;
-    fechaCreacion: string;
-    fechaActualizacion: string;
-  }[];
-  total: number;
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "nombre": "Harina",
+      "stock": 1000,
+      "unidad": "gramos",
+      "stockMinimo": 500,
+      "costo": 2.5,
+      "fechaCreacion": "2024-03-25T10:00:00Z",
+      "fechaActualizacion": "2024-03-25T10:00:00Z"
+    }
+  ],
+  "total": 1
 }
 ```
 
@@ -40,15 +42,15 @@ Devuelve un solo ingrediente con la misma estructura que arriba.
 
 Crea un nuevo ingrediente.
 
-**Cuerpo de la Solicitud:**
+**Ejemplo del Body:**
 
-```typescript
-interface SolicitudCrearIngrediente {
-  nombre: string;
-  stock: number;
-  unidad: string;
-  stockMinimo: number;
-  costo: number;
+```json
+{
+  "nombre": "Harina",
+  "stock": 1000,
+  "unidad": "gramos",
+  "stockMinimo": 500,
+  "costo": 2.5
 }
 ```
 
@@ -56,12 +58,12 @@ interface SolicitudCrearIngrediente {
 
 Actualiza el stock de un ingrediente.
 
-**Cuerpo de la Solicitud:**
+**Ejemplo del Body:**
 
-```typescript
-interface SolicitudActualizarStock {
-  cantidad: number;
-  operacion: "agregar" | "restar";
+```json
+{
+  "cantidad": 100,
+  "operacion": "agregar"
 }
 ```
 
@@ -73,27 +75,31 @@ URL Base: `/api/recipes`
 
 Devuelve una lista de todas las recetas.
 
-**Respuesta:**
+**Ejemplo de Respuesta:**
 
-```typescript
-interface RespuestaObtenerRecetas {
-  data: {
-    id: number;
-    nombre: string;
-    ingredientes: {
-      ingredienteId: number;
-      cantidad: number;
-      ingrediente: {
-        nombre: string;
-        unidad: string;
-      };
-    }[];
-    rendimiento: number;
-    instrucciones: string[];
-    fechaCreacion: string;
-    fechaActualizacion: string;
-  }[];
-  total: number;
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "nombre": "Galletas de Chocolate",
+      "ingredientes": [
+        {
+          "ingredienteId": 1,
+          "cantidad": 200,
+          "ingrediente": {
+            "nombre": "Harina",
+            "unidad": "gramos"
+          }
+        }
+      ],
+      "rendimiento": 24,
+      "instrucciones": ["Mezclar ingredientes secos", "Agregar mantequilla derretida", "Hornear por 12 minutos"],
+      "fechaCreacion": "2024-03-25T10:00:00Z",
+      "fechaActualizacion": "2024-03-25T10:00:00Z"
+    }
+  ],
+  "total": 1
 }
 ```
 
@@ -105,35 +111,39 @@ URL Base: `/api/cookies`
 
 Devuelve una lista de todas las galletas.
 
-**Respuesta:**
+**Ejemplo de Respuesta:**
 
-```typescript
-interface RespuestaObtenerGalletas {
-  data: {
-    id: number;
-    nombre: string;
-    recetaId: number;
-    descripcion: string;
-    imagen: string;
-    precio: {
-      unidad: number;
-      paquete500g: number;
-      paquete1000g: number;
-      precioPorGramo: number;
-    };
-    stock: number;
-    pesoPorUnidad: number;
-    receta: {
-      nombre: string;
-      ingredientes: {
-        ingredienteId: number;
-        cantidad: number;
-      }[];
-    };
-    fechaCreacion: string;
-    fechaActualizacion: string;
-  }[];
-  total: number;
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "nombre": "Galleta de Chocolate",
+      "recetaId": 1,
+      "descripcion": "Deliciosa galleta con chispas de chocolate",
+      "imagen": "url_imagen",
+      "precio": {
+        "unidad": 1.5,
+        "paquete500g": 12.0,
+        "paquete1000g": 22.0,
+        "precioPorGramo": 0.024
+      },
+      "stock": 100,
+      "pesoPorUnidad": 30,
+      "receta": {
+        "nombre": "Galletas de Chocolate",
+        "ingredientes": [
+          {
+            "ingredienteId": 1,
+            "cantidad": 200
+          }
+        ]
+      },
+      "fechaCreacion": "2024-03-25T10:00:00Z",
+      "fechaActualizacion": "2024-03-25T10:00:00Z"
+    }
+  ],
+  "total": 1
 }
 ```
 
@@ -145,29 +155,31 @@ URL Base: `/api/production`
 
 Crea un nuevo lote de producción.
 
-**Cuerpo de la Solicitud:**
+**Ejemplo del Body:**
 
-```typescript
-interface SolicitudCrearLoteProduccion {
-  galletaId: number;
-  cantidad: number; // Cantidad de galletas a producir
+```json
+{
+  "galletaId": 1,
+  "cantidad": 100
 }
 ```
 
-**Respuesta:**
+**Ejemplo de Respuesta:**
 
-```typescript
-interface RespuestaLoteProduccion {
-  id: number;
-  galletaId: number;
-  cantidad: number;
-  ingredientesUsados: {
-    ingredienteId: number;
-    cantidad: number;
-    nombre: string;
-  }[];
-  estado: "exitoso" | "ingredientes_insuficientes";
-  fechaCreacion: string;
+```json
+{
+  "id": 1,
+  "galletaId": 1,
+  "cantidad": 100,
+  "ingredientesUsados": [
+    {
+      "ingredienteId": 1,
+      "cantidad": 833.33,
+      "nombre": "Harina"
+    }
+  ],
+  "estado": "exitoso",
+  "fechaCreacion": "2024-03-25T10:00:00Z"
 }
 ```
 
@@ -179,36 +191,40 @@ URL Base: `/api/sales`
 
 Crea una nueva venta.
 
-**Cuerpo de la Solicitud:**
+**Ejemplo del Body:**
 
-```typescript
-interface SolicitudCrearVenta {
-  items: {
-    galletaId: number;
-    cantidad: number;
-    tipoVenta: "unidad" | "monto" | "peso" | "paquete500" | "paquete1000";
-    precio: number;
-  }[];
-  metodoPago: "efectivo" | "tarjeta";
+```json
+{
+  "items": [
+    {
+      "galletaId": 1,
+      "cantidad": 5,
+      "tipoVenta": "unidad",
+      "precio": 1.5
+    }
+  ],
+  "metodoPago": "efectivo"
 }
 ```
 
-**Respuesta:**
+**Ejemplo de Respuesta:**
 
-```typescript
-interface RespuestaVenta {
-  id: number;
-  items: {
-    galletaId: number;
-    nombreGalleta: string;
-    cantidad: number;
-    tipoVenta: string;
-    precioUnitario: number;
-    total: number;
-  }[];
-  total: number;
-  metodoPago: string;
-  fechaCreacion: string;
+```json
+{
+  "id": 1,
+  "items": [
+    {
+      "galletaId": 1,
+      "nombreGalleta": "Galleta de Chocolate",
+      "cantidad": 5,
+      "tipoVenta": "unidad",
+      "precioUnitario": 1.5,
+      "total": 7.5
+    }
+  ],
+  "total": 7.5,
+  "metodoPago": "efectivo",
+  "fechaCreacion": "2024-03-25T10:00:00Z"
 }
 ```
 
@@ -225,22 +241,24 @@ Devuelve reporte de inventario.
 - fechaInicio
 - fechaFin
 
-**Respuesta:**
+**Ejemplo de Respuesta:**
 
-```typescript
-interface RespuestaReporteInventario {
-  ingredientes: {
-    id: number;
-    nombre: string;
-    stockInicial: number;
-    stockActual: number;
-    consumido: number;
-    costo: number;
-  }[];
-  periodo: {
-    inicio: string;
-    fin: string;
-  };
+```json
+{
+  "ingredientes": [
+    {
+      "id": 1,
+      "nombre": "Harina",
+      "stockInicial": 1000,
+      "stockActual": 166.67,
+      "consumido": 833.33,
+      "costo": 2.5
+    }
+  ],
+  "periodo": {
+    "inicio": "2024-03-01T00:00:00Z",
+    "fin": "2024-03-25T23:59:59Z"
+  }
 }
 ```
 
@@ -253,27 +271,31 @@ Devuelve reporte de ventas.
 - fechaInicio
 - fechaFin
 
-**Respuesta:**
+**Ejemplo de Respuesta:**
 
-```typescript
-interface RespuestaReporteVentas {
-  ventasTotales: number;
-  ingresoTotal: number;
-  ventasPorProducto: {
-    galletaId: number;
-    nombreGalleta: string;
-    unidadesVendidas: number;
-    ingreso: number;
-  }[];
-  ventasPorTipo: {
-    tipo: string;
-    cantidad: number;
-    ingreso: number;
-  }[];
-  periodo: {
-    inicio: string;
-    fin: string;
-  };
+```json
+{
+  "ventasTotales": 50,
+  "ingresoTotal": 75.0,
+  "ventasPorProducto": [
+    {
+      "galletaId": 1,
+      "nombreGalleta": "Galleta de Chocolate",
+      "unidadesVendidas": 50,
+      "ingreso": 75.0
+    }
+  ],
+  "ventasPorTipo": [
+    {
+      "tipo": "unidad",
+      "cantidad": 50,
+      "ingreso": 75.0
+    }
+  ],
+  "periodo": {
+    "inicio": "2024-03-01T00:00:00Z",
+    "fin": "2024-03-25T23:59:59Z"
+  }
 }
 ```
 
@@ -281,12 +303,16 @@ interface RespuestaReporteVentas {
 
 Todos los endpoints devuelven errores en el siguiente formato:
 
-```typescript
-interface RespuestaError {
-  error: {
-    codigo: string;
-    mensaje: string;
-    detalles?: any;
-  };
+```json
+{
+  "error": {
+    "codigo": "STOCK_INSUFICIENTE",
+    "mensaje": "No hay suficiente stock del ingrediente",
+    "detalles": {
+      "ingredienteId": 1,
+      "stockActual": 100,
+      "stockRequerido": 200
+    }
+  }
 }
 ```
