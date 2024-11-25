@@ -1,32 +1,32 @@
-# API Documentation for Cookie Shop
+# Documentación API para Tienda de Galletas
 
-## Base URLs
+## URLs Base
 
-All endpoints described below are relative to the API base URL.
+Todos los endpoints descritos a continuación son relativos a la URL base de la API.
 
-## Endpoints Overview
+## Resumen de Endpoints
 
-### Ingredients
+### Ingredientes
 
-Base URL: `/api/ingredients`
+URL Base: `/api/ingredients`
 
 #### GET /api/ingredients
 
-Returns a list of all ingredients.
+Devuelve una lista de todos los ingredientes.
 
-**Response:**
+**Respuesta:**
 
 ```typescript
-interface GetIngredientsResponse {
+interface RespuestaObtenerIngredientes {
   data: {
     id: number;
-    name: string;
+    nombre: string;
     stock: number;
-    unit: string;
-    minimumStock: number;
-    cost: number;
-    createdAt: string;
-    updatedAt: string;
+    unidad: string;
+    stockMinimo: number;
+    costo: number;
+    fechaCreacion: string;
+    fechaActualizacion: string;
   }[];
   total: number;
 }
@@ -34,280 +34,259 @@ interface GetIngredientsResponse {
 
 #### GET /api/ingredients/:id
 
-Returns a single ingredient with the same structure as above.
+Devuelve un solo ingrediente con la misma estructura que arriba.
 
 #### POST /api/ingredients
 
-Creates a new ingredient.
+Crea un nuevo ingrediente.
 
-**Request Body:**
+**Cuerpo de la Solicitud:**
 
 ```typescript
-interface CreateIngredientRequest {
-  name: string;
+interface SolicitudCrearIngrediente {
+  nombre: string;
   stock: number;
-  unit: string;
-  minimumStock: number;
-  cost: number;
+  unidad: string;
+  stockMinimo: number;
+  costo: number;
 }
 ```
 
 #### PUT /api/ingredients/:id/stock
 
-Updates the stock of an ingredient.
+Actualiza el stock de un ingrediente.
 
-**Request Body:**
+**Cuerpo de la Solicitud:**
 
 ```typescript
-interface UpdateStockRequest {
-  quantity: number;
-  operation: "add" | "subtract";
+interface SolicitudActualizarStock {
+  cantidad: number;
+  operacion: "agregar" | "restar";
 }
 ```
 
-### Recipes
+### Recetas
 
-Base URL: `/api/recipes`
+URL Base: `/api/recipes`
 
 #### GET /api/recipes
 
-Returns a list of all recipes.
+Devuelve una lista de todas las recetas.
 
-**Response:**
+**Respuesta:**
 
 ```typescript
-interface GetRecipesResponse {
+interface RespuestaObtenerRecetas {
   data: {
     id: number;
-    name: string;
-    ingredients: {
-      ingredientId: number;
-      quantity: number;
-      ingredient: {
-        name: string;
-        unit: string;
+    nombre: string;
+    ingredientes: {
+      ingredienteId: number;
+      cantidad: number;
+      ingrediente: {
+        nombre: string;
+        unidad: string;
       };
     }[];
-    yield: number;
-    instructions: string[];
-    createdAt: string;
-    updatedAt: string;
+    rendimiento: number;
+    instrucciones: string[];
+    fechaCreacion: string;
+    fechaActualizacion: string;
   }[];
   total: number;
 }
 ```
 
-### Cookies
+### Galletas
 
-Base URL: `/api/cookies`
+URL Base: `/api/cookies`
 
 #### GET /api/cookies
 
-Returns a list of all cookies.
+Devuelve una lista de todas las galletas.
 
-**Response:**
+**Respuesta:**
 
 ```typescript
-interface GetCookiesResponse {
+interface RespuestaObtenerGalletas {
   data: {
     id: number;
-    name: string;
-    recipeId: number;
-    description: string;
-    image: string;
-    price: {
-      unit: number;
-      package500g: number;
-      package1000g: number;
-      pricePerGram: number;
+    nombre: string;
+    recetaId: number;
+    descripcion: string;
+    imagen: string;
+    precio: {
+      unidad: number;
+      paquete500g: number;
+      paquete1000g: number;
+      precioPorGramo: number;
     };
     stock: number;
-    weightPerUnit: number;
-    recipe: {
-      name: string;
-      ingredients: {
-        ingredientId: number;
-        quantity: number;
+    pesoPorUnidad: number;
+    receta: {
+      nombre: string;
+      ingredientes: {
+        ingredienteId: number;
+        cantidad: number;
       }[];
     };
-    createdAt: string;
-    updatedAt: string;
+    fechaCreacion: string;
+    fechaActualizacion: string;
   }[];
   total: number;
 }
 ```
 
-### Production
+### Producción
 
-Base URL: `/api/production`
+URL Base: `/api/production`
 
 #### POST /api/production/batch
 
-Creates a new production batch.
+Crea un nuevo lote de producción.
 
-**Request Body:**
+**Cuerpo de la Solicitud:**
 
 ```typescript
-interface CreateProductionBatchRequest {
-  cookieId: number;
-  quantity: number; // Number of cookies to produce
+interface SolicitudCrearLoteProduccion {
+  galletaId: number;
+  cantidad: number; // Cantidad de galletas a producir
 }
 ```
 
-**Response:**
+**Respuesta:**
 
 ```typescript
-interface ProductionBatchResponse {
+interface RespuestaLoteProduccion {
   id: number;
-  cookieId: number;
-  quantity: number;
-  ingredientsUsed: {
-    ingredientId: number;
-    quantity: number;
-    name: string;
+  galletaId: number;
+  cantidad: number;
+  ingredientesUsados: {
+    ingredienteId: number;
+    cantidad: number;
+    nombre: string;
   }[];
-  status: "success" | "insufficient_ingredients";
-  createdAt: string;
+  estado: "exitoso" | "ingredientes_insuficientes";
+  fechaCreacion: string;
 }
 ```
 
-### Sales
+### Ventas
 
-Base URL: `/api/sales`
+URL Base: `/api/sales`
 
 #### POST /api/sales
 
-Creates a new sale.
+Crea una nueva venta.
 
-**Request Body:**
+**Cuerpo de la Solicitud:**
 
 ```typescript
-interface CreateSaleRequest {
+interface SolicitudCrearVenta {
   items: {
-    cookieId: number;
-    quantity: number;
-    saleType: "unit" | "amount" | "weight" | "package500" | "package1000";
-    price: number;
+    galletaId: number;
+    cantidad: number;
+    tipoVenta: "unidad" | "monto" | "peso" | "paquete500" | "paquete1000";
+    precio: number;
   }[];
-  paymentMethod: "cash" | "card";
+  metodoPago: "efectivo" | "tarjeta";
 }
 ```
 
-**Response:**
+**Respuesta:**
 
 ```typescript
-interface SaleResponse {
+interface RespuestaVenta {
   id: number;
   items: {
-    cookieId: number;
-    cookieName: string;
-    quantity: number;
-    saleType: string;
-    unitPrice: number;
+    galletaId: number;
+    nombreGalleta: string;
+    cantidad: number;
+    tipoVenta: string;
+    precioUnitario: number;
     total: number;
   }[];
   total: number;
-  paymentMethod: string;
-  createdAt: string;
+  metodoPago: string;
+  fechaCreacion: string;
 }
 ```
 
-### Reports
+### Reportes
 
-Base URL: `/api/reports`
+URL Base: `/api/reports`
 
 #### GET /api/reports/inventory
 
-Returns inventory report.
+Devuelve reporte de inventario.
 
-**Query Parameters:**
+**Parámetros de Consulta:**
 
-- startDate
-- endDate
+- fechaInicio
+- fechaFin
 
-**Response:**
+**Respuesta:**
 
 ```typescript
-interface InventoryReportResponse {
-  ingredients: {
+interface RespuestaReporteInventario {
+  ingredientes: {
     id: number;
-    name: string;
-    initialStock: number;
-    currentStock: number;
-    consumed: number;
-    cost: number;
+    nombre: string;
+    stockInicial: number;
+    stockActual: number;
+    consumido: number;
+    costo: number;
   }[];
-  period: {
-    start: string;
-    end: string;
+  periodo: {
+    inicio: string;
+    fin: string;
   };
 }
 ```
 
 #### GET /api/reports/sales
 
-Returns sales report.
+Devuelve reporte de ventas.
 
-**Query Parameters:**
+**Parámetros de Consulta:**
 
-- startDate
-- endDate
+- fechaInicio
+- fechaFin
 
-**Response:**
+**Respuesta:**
 
 ```typescript
-interface SalesReportResponse {
-  totalSales: number;
-  totalRevenue: number;
-  salesByProduct: {
-    cookieId: number;
-    cookieName: string;
-    unitsSold: number;
-    revenue: number;
+interface RespuestaReporteVentas {
+  ventasTotales: number;
+  ingresoTotal: number;
+  ventasPorProducto: {
+    galletaId: number;
+    nombreGalleta: string;
+    unidadesVendidas: number;
+    ingreso: number;
   }[];
-  salesByType: {
-    type: string;
-    quantity: number;
-    revenue: number;
+  ventasPorTipo: {
+    tipo: string;
+    cantidad: number;
+    ingreso: number;
   }[];
-  period: {
-    start: string;
-    end: string;
+  periodo: {
+    inicio: string;
+    fin: string;
   };
 }
 ```
 
-## Common Features
+## Manejo de Errores
 
-### Pagination
-
-All list endpoints support pagination with the following query parameters:
-
-- page: Page number (default: 1)
-- limit: Items per page (default: 10)
-- sort: Field to sort by
-- order: Sort order ('asc' or 'desc')
-
-Example: `/api/cookies?page=1&limit=10&sort=createdAt&order=desc`
-
-### Authentication
-
-All endpoints require authentication using JWT token in the Authorization header:
-
-```
-Authorization: Bearer <token>
-```
-
-### Error Responses
-
-All endpoints return errors in the following format:
+Todos los endpoints devuelven errores en el siguiente formato:
 
 ```typescript
-interface ErrorResponse {
+interface RespuestaError {
   error: {
-    code: string;
-    message: string;
-    details?: any;
+    codigo: string;
+    mensaje: string;
+    detalles?: any;
   };
 }
 ```
