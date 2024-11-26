@@ -18,11 +18,6 @@ const routes: Routes = [
     path: 'produccion',
     component: ProduccionComponent,
   },
-  {
-    path: '',
-    component: MainComponent,
-    pathMatch: 'full',
-  },
 ];
 
 @NgModule({

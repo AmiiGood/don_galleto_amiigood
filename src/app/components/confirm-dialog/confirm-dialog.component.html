@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Confirmar Finalización</h2>
+<mat-dialog-content>
+  <p>
+    ¿Estás seguro que la galleta "{{ data.cookie.name }}" está lista para
+    agregarse al inventario?
+  </p>
+  <p class="recipe-yield">
+    Se agregarán {{ recipeYield }} unidades al inventario.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close(false)">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="dialogRef.close(true)">
+    Confirmar y Finalizar
+  </button>
+</mat-dialog-actions>

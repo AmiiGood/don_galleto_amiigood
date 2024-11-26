@@ -1,1 +1,107 @@
-<p>produccion works!</p>
+<div class="production-container">
+  <div class="production-columns">
+    <div class="production-column">
+      <h3>Preparación</h3>
+      <div
+        cdkDropList
+        #preparacionList="cdkDropList"
+        [cdkDropListData]="productionStatus.preparacion"
+        [cdkDropListConnectedTo]="[horneadoList]"
+        class="production-list"
+        (cdkDropListDropped)="drop($event)"
+        id="preparacion"
+      >
+        <div
+          class="production-box"
+          *ngFor="let cookie of productionStatus.preparacion"
+          cdkDrag
+          (click)="showRecipe(cookie)"
+        >
+          <div class="cookie-card">
+            <h4>{{ cookie.name }}</h4>
+            <p>{{ cookie.description }}</p>
+            <small class="click-hint">Click para ver receta</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="production-column">
+      <h3>Horneado</h3>
+      <div
+        cdkDropList
+        #horneadoList="cdkDropList"
+        [cdkDropListData]="productionStatus.horneado"
+        [cdkDropListConnectedTo]="[preparacionList, enfriamientoList]"
+        class="production-list"
+        (cdkDropListDropped)="drop($event)"
+        id="horneado"
+      >
+        <div
+          class="production-box"
+          *ngFor="let cookie of productionStatus.horneado"
+          cdkDrag
+          (click)="showRecipe(cookie)"
+        >
+          <div class="cookie-card">
+            <h4>{{ cookie.name }}</h4>
+            <p>{{ cookie.description }}</p>
+            <small class="click-hint">Click para ver receta</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="production-column">
+      <h3>Enfriamiento</h3>
+      <div
+        cdkDropList
+        #enfriamientoList="cdkDropList"
+        [cdkDropListData]="productionStatus.enfriamiento"
+        [cdkDropListConnectedTo]="[horneadoList, listaList]"
+        class="production-list"
+        (cdkDropListDropped)="drop($event)"
+        id="enfriamiento"
+      >
+        <div
+          class="production-box"
+          *ngFor="let cookie of productionStatus.enfriamiento"
+          cdkDrag
+          (click)="showRecipe(cookie)"
+        >
+          <div class="cookie-card">
+            <h4>{{ cookie.name }}</h4>
+            <p>{{ cookie.description }}</p>
+            <small class="click-hint">Click para ver receta</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="production-column">
+      <h3>Lista</h3>
+      <div
+        cdkDropList
+        #listaList="cdkDropList"
+        [cdkDropListData]="productionStatus.lista"
+        [cdkDropListConnectedTo]="[enfriamientoList]"
+        class="production-list"
+        (cdkDropListDropped)="drop($event)"
+        id="lista"
+      >
+        <div
+          class="production-box"
+          *ngFor="let cookie of productionStatus.lista"
+          cdkDrag
+          (click)="showRecipe(cookie)"
+        >
+          <div class="cookie-card">
+            <h4>{{ cookie.name }}</h4>
+            <p>{{ cookie.description }}</p>
+            <small class="click-hint">Click para ver receta</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
