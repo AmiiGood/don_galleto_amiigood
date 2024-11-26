@@ -7,9 +7,11 @@ import { CookiesMainComponent } from './components/cookies-main/cookies-main.com
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AngularMaterialModule } from './angularMaterialImports/angularMaterial.module';
 import { MainComponent } from './components/main/main.component';
+import { ProduccionComponent } from './components/produccion/produccion.component';
+import { VentasComponent } from './components/ventas/ventas.component';
 
 @NgModule({
-  declarations: [AppComponent, CookiesMainComponent, MainComponent],
+  declarations: [AppComponent, CookiesMainComponent, MainComponent, ProduccionComponent, VentasComponent],
   imports: [BrowserModule, AppRoutingModule, AngularMaterialModule],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

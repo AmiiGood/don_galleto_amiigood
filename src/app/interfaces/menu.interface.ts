@@ -7,12 +7,17 @@ export interface MenuInterface {
 export const MenuItems: MenuInterface[] = [
   {
     label: 'Ventas',
-    icon: 'shopping_bag',
+    icon: 'shopping_cart',
     route: ['/ventas'],
   },
   {
     label: 'Galletas',
-    icon: 'inventory_2',
+    icon: 'cookie',
     route: ['/cookies'],
+  },
+  {
+    label: 'Produccion',
+    icon: 'factory',
+    route: ['/produccion'],
   },
 ];

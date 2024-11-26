@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cookie } from '../../interfaces/cookie.interface';
 import { CookiesService } from '../../services/cookies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cookies-main',
@@ -11,7 +12,7 @@ export class CookiesMainComponent implements OnInit {
   displayedColumns: string[] = ['name', 'description', 'stock', 'status'];
   public cookies!: Cookie[];
 
-  constructor(private cookiesService: CookiesService) {}
+  constructor(private cookiesService: CookiesService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCookies();
@@ -31,5 +32,9 @@ export class CookiesMainComponent implements OnInit {
 
   getStatusClass(status: string): string {
     return status === 'Existencia' ? 'status-success' : 'status-error';
+  }
+
+  openProduccionComponent() {
+    this.router.navigate(['/produccion']);
   }
 }

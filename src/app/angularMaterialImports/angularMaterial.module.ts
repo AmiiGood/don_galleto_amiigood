@@ -4,6 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [],
@@ -13,6 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatListModule,
     MatIconModule,
     MatChipsModule,
+    MatButtonModule,
   ],
   exports: [
     MatTableModule,
@@ -20,6 +22,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatListModule,
     MatIconModule,
     MatChipsModule,
+    MatButtonModule,
   ],
   providers: [],
 })

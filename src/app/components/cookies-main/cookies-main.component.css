@@ -11,3 +11,8 @@
 ::ng-deep .mat-mdc-chip-remove {
   display: none !important;
 }
+
+button {
+  border-width: 1px;
+  border-radius: 16px;
+}
