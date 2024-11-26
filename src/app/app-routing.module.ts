@@ -1,10 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CookiesMainComponent } from './components/cookies-main/cookies-main.component';
+import { MainComponent } from './components/main/main.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'cookies',
+    component: CookiesMainComponent,
+  },
+  {
+    path: '',
+    component: MainComponent,
+    pathMatch: 'full',
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

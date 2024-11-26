@@ -1,0 +1,13 @@
+::ng-deep .status-success {
+  background-color: #c8e6c9 !important;
+  color: #2e7d32 !important;
+}
+
+::ng-deep .status-error {
+  background-color: #ffcdd2 !important;
+  color: #c62828 !important;
+}
+
+::ng-deep .mat-mdc-chip-remove {
+  display: none !important;
+}

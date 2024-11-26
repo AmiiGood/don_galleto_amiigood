@@ -3,7 +3,7 @@ export interface Cookie {
   name: string;
   recipeId: number;
   description: string;
-  image: string;
+  status: string;
   price: {
     unit: number;
     package500g: number;
