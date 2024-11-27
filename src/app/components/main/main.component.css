@@ -1,15 +1,24 @@
 .layout-wrapper {
   height: 100vh;
   display: flex;
+  overflow: hidden;
 }
 
-.content-area{
+.content-area {
+  height: 95%;
   margin-top: 5%;
+  overflow-y: auto;
+  padding-bottom: 24px;
 }
 
 mat-sidenav-container {
   height: 100%;
   flex: 1;
+}
+
+.main-content {
+  height: 100%;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -86,9 +95,9 @@ mat-sidenav-container {
       transform: translateY(-50%);
       height: 65%;
       width: 8px;
-      background: linear-gradient(180deg, #D91656, #D91656);
+      background: linear-gradient(180deg, #d91656, #d91656);
       border-radius: 0 4px 4px 0;
-      box-shadow: 0 0 8px #D91656;
+      box-shadow: 0 0 8px #d91656;
     }
 
     &:hover {
@@ -96,7 +105,7 @@ mat-sidenav-container {
     }
 
     .mat-icon {
-      color: #CA7373 !important;
+      color: #ca7373 !important;
     }
 
     span {
