@@ -1,318 +1,266 @@
-# Documentación API para Tienda de Galletas
+# API Endpoints para Sistema de Producción de Galletas
 
-## URLs Base
+## Cookies
 
-Todos los endpoints descritos a continuación son relativos a la URL base de la API.
+### GET /api/cookies
 
-## Resumen de Endpoints
+Obtiene todas las galletas disponibles.
 
-### Ingredientes
-
-URL Base: `/api/ingredients`
-
-#### GET /api/ingredients
-
-Devuelve una lista de todos los ingredientes.
-
-**Ejemplo de Respuesta:**
+**Response 200:**
 
 ```json
 {
-  "data": [
+  "cookies": [
     {
-      "id": 1,
-      "nombre": "Harina",
-      "stock": 1000,
-      "unidad": "gramos",
-      "stockMinimo": 500,
-      "costo": 2.5,
-      "fechaCreacion": "2024-03-25T10:00:00Z",
-      "fechaActualizacion": "2024-03-25T10:00:00Z"
+      "id": number,
+      "name": string,
+      "recipeId": number,
+      "description": string,
+      "status": string,
+      "price": {
+        "unit": number,
+        "package500g": number,
+        "package1000g": number,
+        "pricePerGram": number
+      },
+      "stock": number,
+      "weightPerUnit": number
+    }
+  ]
+}
+```
+
+### PATCH /api/cookies/{id}/stock
+
+Actualiza el stock de una galleta.
+
+**Request Body:**
+
+```json
+{
+  "quantity": number  // Puede ser positivo o negativo
+}
+```
+
+**Response 200:**
+
+```json
+{
+  "id": number,
+  "stock": number,
+  "status": string
+}
+```
+
+### PATCH /api/cookies/{id}/status
+
+Actualiza el estado de una galleta.
+
+**Request Body:**
+
+```json
+{
+  "status": string  // "Existencia" o "Agotado"
+}
+```
+
+**Response 200:**
+
+```json
+{
+  "id": number,
+  "status": string
+}
+```
+
+## Recipes
+
+### GET /api/recipes/{id}
+
+Obtiene una receta específica.
+
+**Response 200:**
+
+```json
+{
+  "id": number,
+  "name": string,
+  "ingredients": [
+    {
+      "ingredientId": number,
+      "quantity": number
     }
   ],
-  "total": 1
+  "yield": number,
+  "instructions": string[]
 }
 ```
 
-#### GET /api/ingredients/:id
+### GET /api/recipes/{id}/availability
 
-Devuelve un solo ingrediente con la misma estructura que arriba.
+Verifica la disponibilidad de ingredientes para una receta.
 
-#### POST /api/ingredients
-
-Crea un nuevo ingrediente.
-
-**Ejemplo del Body:**
+**Response 200:**
 
 ```json
 {
-  "nombre": "Harina",
-  "stock": 1000,
-  "unidad": "gramos",
-  "stockMinimo": 500,
-  "costo": 2.5
+  "available": boolean,
+  "missingIngredients": [
+    {
+      "ingredientId": number,
+      "name": string,
+      "required": number,
+      "available": number
+    }
+  ]
 }
 ```
 
-#### PUT /api/ingredients/:id/stock
+## Ingredients
+
+### GET /api/ingredients
+
+Obtiene todos los ingredientes.
+
+**Response 200:**
+
+```json
+{
+  "ingredients": [
+    {
+      "id": number,
+      "name": string,
+      "stock": number,
+      "unit": string,
+      "minimumStock": number,
+      "cost": number
+    }
+  ]
+}
+```
+
+### GET /api/ingredients/{id}
+
+Obtiene un ingrediente específico.
+
+**Response 200:**
+
+```json
+{
+  "id": number,
+  "name": string,
+  "stock": number,
+  "unit": string,
+  "minimumStock": number,
+  "cost": number
+}
+```
+
+### PATCH /api/ingredients/{id}/stock
 
 Actualiza el stock de un ingrediente.
 
-**Ejemplo del Body:**
+**Request Body:**
 
 ```json
 {
-  "cantidad": 100,
-  "operacion": "agregar"
+  "quantity": number  // Puede ser positivo o negativo
 }
 ```
 
-### Recetas
-
-URL Base: `/api/recipes`
-
-#### GET /api/recipes
-
-Devuelve una lista de todas las recetas.
-
-**Ejemplo de Respuesta:**
+**Response 200:**
 
 ```json
 {
-  "data": [
-    {
-      "id": 1,
-      "nombre": "Galletas de Chocolate",
-      "ingredientes": [
-        {
-          "ingredienteId": 1,
-          "cantidad": 200,
-          "ingrediente": {
-            "nombre": "Harina",
-            "unidad": "gramos"
-          }
-        }
-      ],
-      "rendimiento": 24,
-      "instrucciones": ["Mezclar ingredientes secos", "Agregar mantequilla derretida", "Hornear por 12 minutos"],
-      "fechaCreacion": "2024-03-25T10:00:00Z",
-      "fechaActualizacion": "2024-03-25T10:00:00Z"
-    }
-  ],
-  "total": 1
+  "id": number,
+  "stock": number,
+  "belowMinimum": boolean
 }
 ```
 
-### Galletas
+## Production
 
-URL Base: `/api/cookies`
+### GET /api/production/status
 
-#### GET /api/cookies
+Obtiene el estado actual de la producción.
 
-Devuelve una lista de todas las galletas.
-
-**Ejemplo de Respuesta:**
+**Response 200:**
 
 ```json
 {
-  "data": [
-    {
-      "id": 1,
-      "nombre": "Galleta de Chocolate",
-      "recetaId": 1,
-      "descripcion": "Deliciosa galleta con chispas de chocolate",
-      "imagen": "url_imagen",
-      "precio": {
-        "unidad": 1.5,
-        "paquete500g": 12.0,
-        "paquete1000g": 22.0,
-        "precioPorGramo": 0.024
-      },
-      "stock": 100,
-      "pesoPorUnidad": 30,
-      "receta": {
-        "nombre": "Galletas de Chocolate",
-        "ingredientes": [
-          {
-            "ingredienteId": 1,
-            "cantidad": 200
-          }
-        ]
-      },
-      "fechaCreacion": "2024-03-25T10:00:00Z",
-      "fechaActualizacion": "2024-03-25T10:00:00Z"
-    }
-  ],
-  "total": 1
+  "preparacion": CookieProduction[],
+  "horneado": CookieProduction[],
+  "enfriamiento": CookieProduction[],
+  "lista": CookieProduction[]
 }
 ```
 
-### Producción
+### POST /api/production/cookies
 
-URL Base: `/api/production`
+Añade una galleta a producción.
 
-#### POST /api/production/batch
-
-Crea un nuevo lote de producción.
-
-**Ejemplo del Body:**
+**Request Body:**
 
 ```json
 {
-  "galletaId": 1,
-  "cantidad": 100
+  "cookieId": number
 }
 ```
 
-**Ejemplo de Respuesta:**
+**Response 200:**
 
 ```json
 {
-  "id": 1,
-  "galletaId": 1,
-  "cantidad": 100,
-  "ingredientesUsados": [
-    {
-      "ingredienteId": 1,
-      "cantidad": 833.33,
-      "nombre": "Harina"
-    }
-  ],
-  "estado": "exitoso",
-  "fechaCreacion": "2024-03-25T10:00:00Z"
+  "productionStatus": ProductionStatus
 }
 ```
 
-### Ventas
+### PATCH /api/production/cookies/{id}/status
 
-URL Base: `/api/sales`
+Actualiza el estado de una galleta en producción.
 
-#### POST /api/sales
-
-Crea una nueva venta.
-
-**Ejemplo del Body:**
+**Request Body:**
 
 ```json
 {
-  "items": [
-    {
-      "galletaId": 1,
-      "cantidad": 5,
-      "tipoVenta": "unidad",
-      "precio": 1.5
-    }
-  ],
-  "metodoPago": "efectivo"
+  "newStatus": "preparacion" | "horneado" | "enfriamiento" | "lista"
 }
 ```
 
-**Ejemplo de Respuesta:**
+**Response 200:**
 
 ```json
 {
-  "id": 1,
-  "items": [
-    {
-      "galletaId": 1,
-      "nombreGalleta": "Galleta de Chocolate",
-      "cantidad": 5,
-      "tipoVenta": "unidad",
-      "precioUnitario": 1.5,
-      "total": 7.5
-    }
-  ],
-  "total": 7.5,
-  "metodoPago": "efectivo",
-  "fechaCreacion": "2024-03-25T10:00:00Z"
+  "productionStatus": ProductionStatus
 }
 ```
 
-### Reportes
+### POST /api/production/cookies/{id}/complete
 
-URL Base: `/api/reports`
+Completa la producción de una galleta.
 
-#### GET /api/reports/inventory
-
-Devuelve reporte de inventario.
-
-**Parámetros de Consulta:**
-
-- fechaInicio
-- fechaFin
-
-**Ejemplo de Respuesta:**
+**Response 200:**
 
 ```json
 {
-  "ingredientes": [
-    {
-      "id": 1,
-      "nombre": "Harina",
-      "stockInicial": 1000,
-      "stockActual": 166.67,
-      "consumido": 833.33,
-      "costo": 2.5
-    }
-  ],
-  "periodo": {
-    "inicio": "2024-03-01T00:00:00Z",
-    "fin": "2024-03-25T23:59:59Z"
-  }
+  "cookieId": number,
+  "unitsProduced": number,
+  "newStock": number,
+  "status": string
 }
 ```
 
-#### GET /api/reports/sales
+## Tipos de Datos Comunes
 
-Devuelve reporte de ventas.
-
-**Parámetros de Consulta:**
-
-- fechaInicio
-- fechaFin
-
-**Ejemplo de Respuesta:**
-
-```json
-{
-  "ventasTotales": 50,
-  "ingresoTotal": 75.0,
-  "ventasPorProducto": [
-    {
-      "galletaId": 1,
-      "nombreGalleta": "Galleta de Chocolate",
-      "unidadesVendidas": 50,
-      "ingreso": 75.0
-    }
-  ],
-  "ventasPorTipo": [
-    {
-      "tipo": "unidad",
-      "cantidad": 50,
-      "ingreso": 75.0
-    }
-  ],
-  "periodo": {
-    "inicio": "2024-03-01T00:00:00Z",
-    "fin": "2024-03-25T23:59:59Z"
-  }
+```typescript
+interface ProductionStatus {
+  preparacion: CookieProduction[];
+  horneado: CookieProduction[];
+  enfriamiento: CookieProduction[];
+  lista: CookieProduction[];
 }
-```
 
-## Manejo de Errores
-
-Todos los endpoints devuelven errores en el siguiente formato:
-
-```json
-{
-  "error": {
-    "codigo": "STOCK_INSUFICIENTE",
-    "mensaje": "No hay suficiente stock del ingrediente",
-    "detalles": {
-      "ingredienteId": 1,
-      "stockActual": 100,
-      "stockRequerido": 200
-    }
-  }
+interface CookieProduction extends Cookie {
+  productionStatus: "preparacion" | "horneado" | "enfriamiento" | "lista";
 }
 ```
