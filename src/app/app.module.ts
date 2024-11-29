@@ -14,7 +14,15 @@ import { RecipeDialogComponent } from './components/recipe-dialog/recipe-dialog.
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, CookiesMainComponent, MainComponent, ProduccionComponent, VentasComponent, RecipeDialogComponent, ConfirmDialogComponent],
+  declarations: [
+    AppComponent,
+    CookiesMainComponent,
+    MainComponent,
+    ProduccionComponent,
+    VentasComponent,
+    RecipeDialogComponent,
+    ConfirmDialogComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, AngularMaterialModule],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
