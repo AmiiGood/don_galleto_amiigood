@@ -16,7 +16,7 @@ export const MenuItems: MenuInterface[] = [
     route: ['/cookies'],
   },
   {
-    label: 'Produccion',
+    label: 'Producción',
     icon: 'factory',
     route: ['/produccion'],
   },
