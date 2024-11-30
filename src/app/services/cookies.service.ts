@@ -18,7 +18,7 @@ export class CookiesService {
   constructor() {}
 
   getAllCookies(): Observable<Cookie[]> {
-    return of(this.cookies).pipe(delay(300));
+    return of(this.cookies).pipe();
   }
 
   getRecipeById(recipeId: number): Recipe | undefined {
