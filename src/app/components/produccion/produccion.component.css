@@ -124,6 +124,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e2e8f0;
   transition: all 0.2s ease;
+  padding: 12px;
 }
 
 .cookie-card:hover {
@@ -153,6 +154,14 @@
   font-style: italic;
   padding-top: 8px;
   border-top: 1px dashed #e2e8f0;
+  text-align: center;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .cdk-drag-placeholder {

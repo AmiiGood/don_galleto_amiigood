@@ -12,6 +12,7 @@ import { ProduccionComponent } from './components/produccion/produccion.componen
 import { VentasComponent } from './components/ventas/ventas.component';
 import { RecipeDialogComponent } from './components/recipe-dialog/recipe-dialog.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { DeleteProductionDialogComponent } from './components/delete-production-dialog/delete-production-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     VentasComponent,
     RecipeDialogComponent,
     ConfirmDialogComponent,
+    DeleteProductionDialogComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, AngularMaterialModule],
   providers: [provideAnimationsAsync()],

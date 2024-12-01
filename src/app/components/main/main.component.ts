@@ -10,7 +10,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class MainComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   menuItems: MenuInterface[] = MenuItems;
-  isExpanded = true;
+  isExpanded = false;
 
   toggleSidebar(): void {
     this.isExpanded = !this.isExpanded;

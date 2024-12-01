@@ -15,12 +15,28 @@
           class="production-box"
           *ngFor="let cookie of productionStatus.preparacion"
           cdkDrag
-          (click)="showRecipe(cookie)"
         >
           <div class="cookie-card">
             <h4>{{ cookie.name }}</h4>
             <p>{{ cookie.description }}</p>
-            <small class="click-hint">Click para ver receta</small>
+            <div class="card-actions">
+              <button
+                mat-icon-button
+                (click)="showRecipe(cookie)"
+                matTooltip="Ver receta"
+              >
+                <mat-icon>menu_book</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteCookieProduction(cookie)"
+                matTooltip="Cancelar producción"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <small class="click-hint">Arrastra para mover</small>
           </div>
         </div>
       </div>
@@ -41,12 +57,28 @@
           class="production-box"
           *ngFor="let cookie of productionStatus.horneado"
           cdkDrag
-          (click)="showRecipe(cookie)"
         >
           <div class="cookie-card">
             <h4>{{ cookie.name }}</h4>
             <p>{{ cookie.description }}</p>
-            <small class="click-hint">Click para ver receta</small>
+            <div class="card-actions">
+              <button
+                mat-icon-button
+                (click)="showRecipe(cookie)"
+                matTooltip="Ver receta"
+              >
+                <mat-icon>menu_book</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteCookieProduction(cookie)"
+                matTooltip="Cancelar producción"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <small class="click-hint">Arrastra para mover</small>
           </div>
         </div>
       </div>
@@ -67,12 +99,28 @@
           class="production-box"
           *ngFor="let cookie of productionStatus.enfriamiento"
           cdkDrag
-          (click)="showRecipe(cookie)"
         >
           <div class="cookie-card">
             <h4>{{ cookie.name }}</h4>
             <p>{{ cookie.description }}</p>
-            <small class="click-hint">Click para ver receta</small>
+            <div class="card-actions">
+              <button
+                mat-icon-button
+                (click)="showRecipe(cookie)"
+                matTooltip="Ver receta"
+              >
+                <mat-icon>menu_book</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteCookieProduction(cookie)"
+                matTooltip="Cancelar producción"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <small class="click-hint">Arrastra para mover</small>
           </div>
         </div>
       </div>
@@ -93,12 +141,28 @@
           class="production-box"
           *ngFor="let cookie of productionStatus.lista"
           cdkDrag
-          (click)="showRecipe(cookie)"
         >
           <div class="cookie-card">
             <h4>{{ cookie.name }}</h4>
             <p>{{ cookie.description }}</p>
-            <small class="click-hint">Click para ver receta</small>
+            <div class="card-actions">
+              <button
+                mat-icon-button
+                (click)="showRecipe(cookie)"
+                matTooltip="Ver receta"
+              >
+                <mat-icon>menu_book</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteCookieProduction(cookie)"
+                matTooltip="Cancelar producción"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <small class="click-hint">Arrastra para mover</small>
           </div>
         </div>
       </div>

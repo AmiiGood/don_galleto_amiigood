@@ -125,4 +125,45 @@ export class ProductionService {
       );
     }
   }
+
+  deleteCookieFromProduction(cookie: CookieProduction): void {
+    // Obtener el estado actual
+    const currentStatus = this.productionStatus.value;
+
+    // Encontrar y eliminar la galleta de su estado actual
+    const statusKeys: (keyof ProductionStatus)[] = [
+      'preparacion',
+      'horneado',
+      'enfriamiento',
+      'lista',
+    ];
+
+    statusKeys.forEach((status) => {
+      currentStatus[status] = currentStatus[status].filter(
+        (c) => c.id !== cookie.id
+      );
+    });
+
+    // Actualizar el estado
+    this.productionStatus.next(currentStatus);
+
+    // Si ya se habían deducido ingredientes, devolverlos al inventario
+    const recipe = this.getRecipe(cookie.recipeId);
+    if (recipe) {
+      recipe.ingredients.forEach((ingredient) => {
+        // Devolver los ingredientes al stock
+        this.cookiesService.updateIngredientStock(
+          ingredient.ingredientId,
+          ingredient.quantity // Suma positiva para devolver al inventario
+        );
+      });
+    }
+
+    // Mostrar mensaje de confirmación
+    this.snackBar.open(
+      `La producción de ${cookie.name} ha sido cancelada`,
+      'Cerrar',
+      { duration: 3000 }
+    );
+  }
 }

@@ -13,6 +13,7 @@ import { ProductionService } from '../../services/production.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RecipeDialogComponent } from '../recipe-dialog/recipe-dialog.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DeleteProductionDialogComponent } from '../delete-production-dialog/delete-production-dialog.component';
 
 @Component({
   selector: 'app-produccion',
@@ -87,6 +88,18 @@ export class ProduccionComponent implements OnInit {
         );
         this.productionService.updateCookieStatus(cookie, newStatus);
       }
+    }
+  }
+  
+  async deleteCookieProduction(cookie: CookieProduction) {
+    const dialogRef = this.dialog.open(DeleteProductionDialogComponent, {
+      width: '350px',
+      data: { cookie },
+    });
+
+    const result = await dialogRef.afterClosed().toPromise();
+    if (result) {
+      this.productionService.deleteCookieFromProduction(cookie);
     }
   }
 }

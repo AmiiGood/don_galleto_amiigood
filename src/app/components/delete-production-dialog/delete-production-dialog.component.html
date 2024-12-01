@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Cancelar Producción</h2>
+<mat-dialog-content>
+  <p>
+    ¿Estás seguro que deseas cancelar la producción de {{ data.cookie.name }}?
+  </p>
+  <p class="warning">
+    Esta acción devolverá los ingredientes al inventario y no se puede deshacer.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-raised-button color="warn" (click)="onConfirm()">
+    Eliminar Producción
+  </button>
+</mat-dialog-actions>
