@@ -1,12 +1,133 @@
-.recipe-content {
-  padding: 20px;
-}
-ul,
-ol {
-  margin-left: 20px;
-}
-.recipe-details {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
+/* Estilos SCSS optimizados */
+.recipe-dialog {
+  .recipe-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #2196f3;
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0;
+    font-size: 1.4rem;
+
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .recipe-content {
+    padding: 16px;
+  }
+
+  .recipe-section {
+    margin-bottom: 20px;
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #424242;
+      font-size: 1rem;
+      margin-bottom: 8px;
+
+      mat-icon {
+        color: #2196f3;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  mat-list {
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 4px;
+
+    mat-list-item {
+      height: 40px !important;
+      margin-bottom: 4px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .ingredient-quantity {
+        color: #666;
+        font-size: 0.85rem;
+      }
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .instructions-list {
+    .instruction-step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+
+      .step-number {
+        background: #2196f3;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 0.9rem;
+      }
+
+      .step-content {
+        padding: 3px 0;
+        color: #424242;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .recipe-details {
+    background: #e3f2fd;
+    margin-top: 16px;
+
+    mat-card-content {
+      padding: 12px !important;
+    }
+
+    .details-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+
+      mat-icon {
+        color: #2196f3;
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  mat-dialog-actions {
+    padding: 12px;
+    gap: 8px;
+
+    button {
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
 }

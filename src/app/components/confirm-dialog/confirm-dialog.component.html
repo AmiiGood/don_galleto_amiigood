@@ -1,16 +1,37 @@
-<h2 mat-dialog-title>Confirmar Finalización</h2>
-<mat-dialog-content>
-  <p>
-    ¿Estás seguro que la galleta "{{ data.cookie.name }}" está lista para
-    agregarse al inventario?
+<!-- Diálogo de Confirmación -->
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon color="primary">check_circle</mat-icon>
+  <span>Confirmar Finalización</span>
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <p class="main-message">
+    ¿Confirmas que la galleta <strong>{{ data.cookie.name }}</strong> está lista
+    para inventario?
   </p>
-  <p class="recipe-yield">
-    Se agregarán {{ recipeYield }} unidades al inventario.
-  </p>
+
+  <div class="info-container">
+    <p class="info-label">
+      <mat-icon color="primary">inventory</mat-icon>
+      Detalles de la producción:
+    </p>
+    <div class="info-content">
+      <p>
+        Se agregarán <strong>{{ recipeYield }} unidades</strong> al inventario
+      </p>
+      <p class="info-note">
+        La fecha de producción quedará registrada automáticamente
+      </p>
+    </div>
+  </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button (click)="dialogRef.close(false)">Cancelar</button>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="dialogRef.close(false)" cdkFocusInitial>
+    Volver
+  </button>
   <button mat-raised-button color="primary" (click)="dialogRef.close(true)">
+    <mat-icon>done</mat-icon>
     Confirmar y Finalizar
   </button>
 </mat-dialog-actions>

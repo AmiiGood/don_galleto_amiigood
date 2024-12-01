@@ -21,6 +21,7 @@ import { DeleteProductionDialogComponent } from '../delete-production-dialog/del
   styleUrl: './produccion.component.css',
 })
 export class ProduccionComponent implements OnInit {
+  dialogWidth = window.innerWidth <= 600 ? '90vw' : '450px';
   productionStatus: ProductionStatus = {
     preparacion: [],
     horneado: [],
@@ -64,7 +65,7 @@ export class ProduccionComponent implements OnInit {
         const recipe = this.productionService.getRecipe(cookie.recipeId);
         if (recipe) {
           const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-            width: '350px',
+            width: '400px',
             data: { cookie, recipe },
           });
 
@@ -90,10 +91,10 @@ export class ProduccionComponent implements OnInit {
       }
     }
   }
-  
+
   async deleteCookieProduction(cookie: CookieProduction) {
     const dialogRef = this.dialog.open(DeleteProductionDialogComponent, {
-      width: '350px',
+      width: '400px',
       data: { cookie },
     });
 

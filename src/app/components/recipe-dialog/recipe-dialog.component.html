@@ -1,25 +1,63 @@
-<h2 mat-dialog-title>Receta: {{ data.cookie.name }}</h2>
-<mat-dialog-content>
-  <div class="recipe-content">
-    <h3>Ingredientes:</h3>
-    <ul>
-      <li *ngFor="let ingredient of ingredientsWithNames">
-        {{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}
-      </li>
-    </ul>
+<!-- Template HTML -->
+<div class="recipe-dialog">
+  <h2 mat-dialog-title class="recipe-title">
+    <mat-icon>restaurant_menu</mat-icon>
+    <span>{{ data.cookie.name }}</span>
+  </h2>
 
-    <h3>Instrucciones:</h3>
-    <ol>
-      <li *ngFor="let instruction of data.recipe.instructions">
-        {{ instruction }}
-      </li>
-    </ol>
+  <mat-dialog-content>
+    <div class="recipe-content">
+      <div class="recipe-section">
+        <h3 class="section-title">
+          <mat-icon>shopping_basket</mat-icon>
+          Ingredientes
+        </h3>
+        <mat-list>
+          <mat-list-item *ngFor="let ingredient of ingredientsWithNames">
+            <mat-icon matListItemIcon>check_circle_outline</mat-icon>
+            <span matListItemTitle>{{ ingredient.name }}</span>
+            <span matListItemLine class="ingredient-quantity">
+              {{ ingredient.quantity }} {{ ingredient.unit }}
+            </span>
+          </mat-list-item>
+        </mat-list>
+      </div>
 
-    <div class="recipe-details">
-      <p><strong>Rendimiento:</strong> {{ data.recipe.yield }} unidades</p>
+      <div class="recipe-section">
+        <h3 class="section-title">
+          <mat-icon>format_list_numbered</mat-icon>
+          Instrucciones
+        </h3>
+        <div class="instructions-list">
+          <div
+            class="instruction-step"
+            *ngFor="let instruction of data.recipe.instructions; let i = index"
+          >
+            <div class="step-number">{{ i + 1 }}</div>
+            <div class="step-content">{{ instruction }}</div>
+          </div>
+        </div>
+      </div>
+
+      <mat-card class="recipe-details">
+        <mat-card-content>
+          <div class="details-item">
+            <mat-icon>cake</mat-icon>
+            <span>Rendimiento: {{ data.recipe.yield }} unidades</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
-  </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cerrar</button>
-</mat-dialog-actions>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close color="warn">
+      <mat-icon>close</mat-icon>
+      Cerrar
+    </button>
+    <button mat-raised-button color="primary" (click)="printRecipe()">
+      <mat-icon>print</mat-icon>
+      Imprimir
+    </button>
+  </mat-dialog-actions>
+</div>
