@@ -1,1 +1,84 @@
-<p>ventas works!</p>
+<mat-card class="sale-card">
+  <div class="header">
+    <mat-card-title>Venta</mat-card-title>
+  </div>
+
+  <div class="form-content">
+    <form [formGroup]="saleForm" (ngSubmit)="addItem()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Galleta</mat-label>
+          <mat-select formControlName="cookieId">
+            <mat-option [value]="null">Seleccionar galleta</mat-option>
+            <mat-option *ngFor="let cookie of cookies" [value]="cookie.id">
+              <div class="cookie-option">
+                <span>{{ cookie.name }}</span>
+                <span class="stock">Stock: {{ cookie.stock }}</span>
+              </div>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de Venta</mat-label>
+          <mat-select formControlName="saleType">
+            <mat-option *ngFor="let type of saleTypes" [value]="type.value">
+              {{ type.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" formControlName="quantity" min="0" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          class="add-button"
+          type="submit"
+          [disabled]="!saleForm.valid"
+        >
+          Agregar al Carrito
+        </button>
+      </div>
+    </form>
+
+    <div class="items-section">
+      <h3 class="section-title">Carrito de Compras</h3>
+
+      <div class="items-list">
+        <div *ngFor="let item of currentItems" class="item-row">
+          <div class="item-info">
+            <span class="item-name">{{ getCookieName(item.cookieId) }}</span>
+            <span class="item-desc">{{ getItemDescription(item) }}</span>
+          </div>
+          <span class="item-price">${{ item.total.toFixed(2) }}</span>
+        </div>
+      </div>
+
+      <div class="sale-footer">
+        <span class="total">Total: ${{ getCurrentTotal().toFixed(2) }}</span>
+        <div class="footer-actions">
+          <button
+            mat-stroked-button
+            class="cancel-button"
+            (click)="clearSale()"
+          >
+            Cancelar
+          </button>
+          <button
+            mat-raised-button
+            class="complete-button"
+            (click)="completeSale()"
+            [disabled]="currentItems.length === 0"
+          >
+            Completar Venta
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

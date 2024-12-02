@@ -250,6 +250,91 @@ Completa la producción de una galleta.
 }
 ```
 
+## Sales
+
+### GET /api/sales
+
+Obtiene todas las ventas realizadas.
+**Response 200:**
+
+```json
+{
+  "sales": [
+    {
+      "id": number,
+      "date": string,
+      "items": SaleItem[],
+      "total": number
+    }
+  ]
+}
+```
+
+### POST /api/sales
+
+Crea una nueva venta.
+**Request Body:**
+
+```json
+{
+  "items": [
+    {
+      "cookieId": number,
+      "quantity": number,
+      "saleType": "UNIT" | "WEIGHT" | "PACKAGE_500" | "PACKAGE_1000" | "AMOUNT",
+      "total": number
+    }
+  ]
+}
+```
+
+**Response 200:**
+
+```json
+{
+  "id": number,
+  "date": string,
+  "items": SaleItem[],
+  "total": number
+}
+```
+
+### GET /api/sales/validate
+
+Valida una venta potencial.
+**Request Body:**
+
+```json
+{
+  "cookieId": number,
+  "quantity": number,
+  "saleType": "UNIT" | "WEIGHT" | "PACKAGE_500" | "PACKAGE_1000" | "AMOUNT"
+}
+```
+
+**Response 200:**
+
+```json
+{
+  "isValid": boolean,
+  "message": string,
+  "actualQuantity": number,
+  "total": number
+}
+```
+
+### DELETE /api/sales/{id}
+
+Cancela una venta específica.
+**Response 200:**
+
+```json
+{
+  "success": boolean,
+  "message": string
+}
+```
+
 ## Tipos de Datos Comunes
 
 ```typescript

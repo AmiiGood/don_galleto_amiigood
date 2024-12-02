@@ -10,6 +10,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [],
@@ -25,6 +28,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatRadioModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
   ],
   exports: [
     MatTableModule,
@@ -38,6 +44,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatRadioModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
   ],
   providers: [],
 })
